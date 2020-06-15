@@ -16,14 +16,14 @@ code {
   color: #2eccf4;
 }
 
-.filteredList {
-  background-color: #bdb9b9;
-  font-weight: bold;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
+/*.filteredList {*/
+/*  background-color: #bdb9b9;*/
+/*  font-weight: bold;*/
+/*  padding-top: 10px;*/
+/*  padding-bottom: 10px;*/
+/*}*/
 
-.filteredList:first-letter {
-  color: #2eccf4;
-}
+/*.filteredList:first-letter {*/
+/*  color: #2eccf4;*/
+/*}*/
 

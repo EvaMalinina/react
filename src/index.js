@@ -68,7 +68,7 @@ ReactDOM.render(
           <li key={index}>{president}</li>
       ))}
     </ul>
-    <ul className="filteredList">
+    <ul className="list" style={{ backgroundColor: "#ddd", paddingBottom: "1em", paddingTop: "1em", fontWeight: "bold"}}>
       {arr2.filter(president => +president.presidentIndex % 2).map((filteredP, index) => (
           <li key={index}>{filteredP.lastName}, {filteredP.firstName}, {filteredP.presidentIndex}-й</li>
       ))}
