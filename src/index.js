@@ -1,24 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 
-const president1 = 'Джордж Вашингтон';
-const president2 = 'Джон Адамс';
-const president3 = 'Томас Джефферсон';
-const president4 = 'Джеймс Медисон';
-const president5 = 'Джеймс Монро';
-const president6 = 'Джон Куинси Адамс';
-const president7 = 'Эндрю Джексон';
-const president8 = 'Мартин Ван Бюрен';
-const president9 = 'Уильям Гаррисон';
-const president10 = 'Джон Тайлер';
-const president11 = 'Полк Джеймс Нокс';
-const president12 = 'Закари Тейлор';
-const president13 = 'Филлмор Миллард';
-const president14 = 'Франклин Пирс';
+const president1 = 'Джордж Вашингтон',
+      president2 = 'Джон Адамс',
+      president3 = 'Томас Джефферсон',
+      president4 = 'Джеймс Медисон',
+      president5 = 'Джеймс Монро',
+      president6 = 'Джон Куинси Адамс',
+      president7 = 'Эндрю Джексон',
+      president8 = 'Мартин Ван Бюрен',
+      president9 = 'Уильям Гаррисон'
 
 const arr = [ president7, president8, president9 ];
 
@@ -46,10 +40,59 @@ const arr2 = [
   {
     firstName: 'Франклин',
     lastName: 'Пирс',
-    presidentIndex: '14'
+    presidentIndex: "14"
   }
 ]
 
+
+const arr3 = [
+  {
+    "id": "666958530825467",
+    "title": "Friday open-air party w/ Lucarelli, Mihas and Yarik JR | Hide",
+    "place": "Hide",
+    "date": "2020-06-19T20:00:00.000Z"
+  },
+  {
+    "id": "786185895252176",
+    "title": "Захист скверу імені Чкалова",
+    "place": "Сквер Им. Чкалова",
+    "date": "2020-06-22T09:00:00.000Z"
+  },
+  {
+    "id": "623921328209118",
+    "title": "Живая музыка на летней террасе",
+    "place": "От Заката до Рассвета",
+    "date": "2020-06-14T17:00:00.000Z"
+  },
+  {
+    "id": "909559356190295",
+    "title": "Amer (2009)",
+    "place": "Кіноклуб Кіноха",
+    "date": "2020-06-13T15:00:00.000Z"
+  },
+  {
+    "id": "589272605321022",
+    "title": "В парк Межигорье на теплоходе",
+    "place": "Причал №6, Почтовая пл.",
+    "date": "2020-06-13T07:45:00.000Z"
+  }
+];
+
+const getTimeOfTheDay = (hrs) => {
+  let timeOfTheDay = '';
+  hrs = parseInt(hrs);
+
+  if (21 < hrs && hrs <= 5) {
+    timeOfTheDay =  'Ночь';
+  } else if (5 < hrs && hrs  <= 11) {
+    timeOfTheDay =  'Утро';
+  } else if (11 < hrs && hrs  <= 17) {
+    timeOfTheDay =  'День';
+  } else if (17 < hrs && hrs  <= 21) {
+    timeOfTheDay =  'Вечер';
+  }
+  return timeOfTheDay;
+}
 
 ReactDOM.render(
   <>
@@ -58,29 +101,67 @@ ReactDOM.render(
       <li>{ president2 }</li>
       <li>{ president3 }</li>
     </ul>
+
     <ol start="4">
       <li>{ president4 }</li>
       <li>{ president5 }</li>
       <li>{ president6 }</li>
     </ol>
+
     <ul className="list">
       {arr.map((president, index) => (
           <li key={index}>{president}</li>
       ))}
     </ul>
-    <ul className="list" style={{ backgroundColor: "#ddd", paddingBottom: "1em", paddingTop: "1em", fontWeight: "bold"}}>
-      {arr2.filter(president => +president.presidentIndex % 2).map((filteredP, index) => (
-          <li key={index}>{filteredP.lastName}, {filteredP.firstName}, {filteredP.presidentIndex}-й</li>
+
+    <ul className="list"
+        style={{
+          backgroundColor: "#ddd",
+          paddingBottom: "1em",
+          paddingTop: "1em",
+          fontWeight: "bold"
+        }}>
+      {arr2.filter(president => +president.presidentIndex % 2)
+        .map((filteredP, index) => (
+          <li key={index}>
+            {filteredP.lastName}, {filteredP.firstName}, {filteredP.presidentIndex}-й
+          </li>
+      ))}
+    </ul>
+
+    <ul className="list">
+      {arr3
+          .sort((a, b) => new Date(a.date) > new Date(b.date) ? 1 : -1)
+          .map((el, index) => (
+          <li key={index}
+              className={new Date() > new Date(el.date) ? 'half-transparent' : ''}
+          >
+            <a href={`https://www.facebook.com/events/${el.id}/`}
+               target="_blank"
+               rel="noopener noreferrer"
+            >
+              {el.title}
+            </a>
+
+            <p>
+              {getTimeOfTheDay( new Date(el.date).getHours() )},{' '}
+              {new Intl.DateTimeFormat("en-GB", {
+                year: "2-digit",
+                month: "2-digit",
+                day: "2-digit",
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+              }).format(new Date(el.date))}
+            </p>
+
+            <p>{el.place}</p>
+          </li>
       ))}
     </ul>
   </>,
-  // <React.StrictMode>
-  //   <App />
-  // </React.StrictMode>,
   document.getElementById('root')
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
+
 serviceWorker.unregister();

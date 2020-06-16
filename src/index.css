@@ -12,8 +12,17 @@ code {
     monospace;
 }
 
+ol:first-letter {
+  color: #aaa;
+  font-weight: bold;
+}
+
 .list:first-letter {
   color: #2eccf4;
+}
+
+.half-transparent {
+  opacity: 0.5;
 }
 
 /*.filteredList {*/

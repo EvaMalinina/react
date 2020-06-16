@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const API = 'https://www.facebook.com/events/';
+const DEFAULT_QUERY = '666958530825467/';
+
+class App extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            hits: [],
+        };
+    }
+
+    componentDidMount() {
+        fetch( API + DEFAULT_QUERY)
+            .then(response => response.json())
+            .then(data => this.setState({ hits: data.hits }));
+    }
+
+    render() {
+        const { hits } = this.state;
+
+        return (
+            <ul>
+                {hits.map(hit =>
+                    <li key={hit.date}>
+                        <a href={hit.url}>{hit.title}</a>
+                    </li>
+                )}
+            </ul>
+        );
+    }
 }
 
 export default App;
