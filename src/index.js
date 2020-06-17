@@ -82,7 +82,7 @@ const getTimeOfTheDay = (hrs) => {
   let timeOfTheDay = '';
   hrs = parseInt(hrs);
 
-  if (21 < hrs && hrs <= 5) {
+  if (21 < hrs || hrs <= 5) {
     timeOfTheDay =  'Ночь';
   } else if (5 < hrs && hrs  <= 11) {
     timeOfTheDay =  'Утро';
@@ -92,6 +92,36 @@ const getTimeOfTheDay = (hrs) => {
     timeOfTheDay =  'Вечер';
   }
   return timeOfTheDay;
+}
+
+const form = new FormData();
+
+form.append('name', 'name')
+form.append('password', 'password')
+
+const handleSubmit = (e) => {
+  const data = {
+    name: document.querySelector('.form__name').value,
+    password: document.querySelector('.form__psw').value,
+    rate: document.querySelector('input[name="rate"]:checked').value,
+    newsletter: document.querySelector('.form__news').value
+  };
+  e.preventDefault();
+
+  fetch('https://postman-echo.com/post',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Methods': 'POST, OPTIONS',
+          'Access-Control-Allow-Credentials': 'true',
+          'Access-Control-Allow-Headers': '*'
+        },
+        mode: 'no-cors',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(data)
+      })
+      .then(console.log(data))
 }
 
 ReactDOM.render(
@@ -159,6 +189,30 @@ ReactDOM.render(
           </li>
       ))}
     </ul>
+
+    <form className="form" onSubmit={handleSubmit}>
+      <label>
+        <p>Имя:</p>
+        <input type="text" name="name" placeholder="Eva" className="form__name" required/>
+      </label>
+      <label>
+        <p>Пароль:</p>
+        <input type="password" name="password" className="form__psw" required minLength={4}/>
+      </label>
+      <label>
+        <input type="radio" name="rate" value="basic" className="form__rate" defaultChecked/>
+        Базовый тариф
+      </label>
+      <label>
+        <input type="radio" name="rate" value="premium" className="form__rate"/>
+        Премиум тариф
+      </label>
+      <label>
+        <input type="checkbox" className="form__news" defaultChecked/>
+        Присылайте мне новости на почту
+      </label>
+      <input type="submit" value="Купить" />
+    </form>
   </>,
   document.getElementById('root')
 );

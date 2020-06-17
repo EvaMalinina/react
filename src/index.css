@@ -25,6 +25,21 @@ ol:first-letter {
   opacity: 0.5;
 }
 
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin: 20px auto;
+}
+
+.form label {
+  margin-bottom: 10px;
+}
+
+.form label input {
+  border: 1px solid black;
+}
+
 /*.filteredList {*/
 /*  background-color: #bdb9b9;*/
 /*  font-weight: bold;*/
