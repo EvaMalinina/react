@@ -104,7 +104,7 @@ const handleSubmit = (e) => {
     name: document.querySelector('.form__name').value,
     password: document.querySelector('.form__psw').value,
     rate: document.querySelector('input[name="rate"]:checked').value,
-    newsletter: document.querySelector('.form__news').value
+    newsletter: document.querySelector('.form__news').checked
   };
   e.preventDefault();
 
